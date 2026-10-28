@@ -1,0 +1,42 @@
+==========================================================================================
+1-4....pptx 0.69 MB
+size 13.333333333333334 x 7.5 | masters 2 | slides 4
+  [01] 标题幻灯片              pics=1  GPU-Parallel Batched Kalman Smoothing & LoRA Fine-Tuned Time-Series Foundation Model for Urban Vehicular Navigation 
+  [02] 标题和内容              pics=0  content | 03 | 04 | Foundation Model & LoRA | Map Prior & Conclusion | 20D features, GPT4TS pipeline, LoRA low-rank math, training & gating, and probe results. 
+  [03] 标题和内容              pics=0  01 / PART ONE | Executive Overview & Big-Data Drift Background | 1.1 Progressive 3-Tier Architecture  | 1.2 8.64M-Row Sensor Big Data  | ➔  | 1.3 Physical Drift
+  [04] 节标题                pics=4  CHAPTER 01: OVERVIEW & BACKGROUND · 1.1 SYSTEM ARCHITECTURE | Why a Progressive Three-Tier Correction Architecture? | Tier 1: Physical Filtering & Smoothing (ES
+==========================================================================================
+part4(1).pptx 1.79 MB
+size 13.333333333333334 x 7.5 | masters 2 | slides 5
+  [01] 标题和内容              pics=0  04 / PART FOUR | Time-Series Models & LoRA Fine-Tuning | 4.1 Residual Learning | 4.2 20-Channel Input /  | 4.3 GPT4TS-Style Model | 4.4 LoRA Fine-Tuning
+  [02] 节标题                pics=0  4.1 Residual Learning | Residual learning after Kalman smoothing | Estimate the position error that remains after the physics baseline. | 9.93 m | Mean outage p
+  [03] 节标题                pics=0  4.2 20-Channel Input | Twenty-channel context for residual prediction | Combine vehicle motion, GNSS availability and the filter’s internal state. | 10 Hz | Fea
+  [04] 节标题                pics=1  4.2 20-Channel Input | GPT4TS-style adaptation of a language model | Patch sensor sequences into embeddings, then adapt a frozen DistilGPT2 backbone. | DistilGP
+  [05] 节标题                pics=1  4.4 LoRA Fine-Tuning | LoRA: a low-rank update to frozen weights | Learn a compact task-specific update while keeping the pretrained backbone fixed. | Low-rank 
+==========================================================================================
+Part_II_Background_Mechanization_ESKF_RTS_English_7_Slides.pptx 1.39 MB
+size 13.333333333333334 x 7.5 | masters 2 | slides 7
+  [01] 标题和内容              pics=0  02 / PART TWO | 15-State ESKF & / Full-State RTS Smoothing | 2.1 Background: IMU Navigation Drift | 2.2 IMU Mechanization | 2.3 15-State ESKF | 2.4 RTS Smoothin
+  [02] 节标题                pics=2  2.1 Background: IMU Navigation Drift | Small IMU biases accumulate into large position drift | A small bias can become a large position error. | 1. IMU errors a
+  [03] 节标题                pics=7  2.2 IMU Mechanization | Mechanization turns IMU measurements into motion | Bias-corrected IMU inputs | Local ENU gravity | Subtract biases before integration. /
+  [04] 节标题                pics=9  2.3 15-State Error-State Kalman Filter | ESKF estimates errors, corrects the state, and resets | 15 components: position, velocity, attitude, accelerometer bias
+  [05] 节标题                pics=5  2.4 RTS Smoothing: Principle | RTS propagates future information backward | A forward filter stores estimates; a backward pass uses the complete GNSS observatio
+  [06] 节标题                pics=1  2.5 Results & Discussion I: Position Error | RTS reduces outage error beyond the forward ESKF | Mean outage error falls from 51.44 m to 9.93 m (−80.7%) across 8
+  [07] 节标题                pics=1  2.6 Results & Discussion II: Trajectory | RTS keeps the outage trajectory closer to ground truth | ESKF drifts inside the outage | The orange dashed path depart
+==========================================================================================
+Part_III_GPU_Acceleration.pptx 0.22 MB
+size 13.333333333333334 x 7.5 | masters 2 | slides 4
+  [01] 标题和内容              pics=0  03 / PART THREE | GPU Parallel Acceleration / and Window Batching | Parallelism across windows and vehicles | Window initialization and trajectory stitching | R
+  [02] 节标题                pics=0  3.1  Parallelism across Windows | PART THREE | 01  Independent tasks | 02  Batched tensors | 03  GPU matrix operations | Split long logs into overlapping window
+  [03] 节标题                pics=0  3.2  Window Batching and Stitching | PART THREE | Reuse first-pass estimates to refine the initial state of each window. | Two-pass warm start | 1  Coarse pass 
+  [04] 节标题                pics=0  3.3  Runtime Gains and Accuracy | PART THREE | Full-route CPU RTS: 9.93 m / Windowed GPU RTS: 10.75 m | +0.82 m outage error (+8.2%) / Less context in each wind
+==========================================================================================
+课程汇报绿色模板_我的部分.pptx 1.27 MB
+size 13.333333333333334 x 7.5 | masters 2 | slides 7
+  [01] 节标题                pics=2  3.4  Training and Safety Gating | CHAPTER 03 · FOUNDATION MODEL AND LoRA | One design decision and one safety mechanism: weight the loss where the filter is bli
+  [02] 节标题                pics=1  3.5  What It Bought — and Where It Stops | CHAPTER 03 · FOUNDATION MODEL AND LoRA | Every tier removes what the one before cannot. What is left is not noise — i
+  [03] 标题和内容              pics=0  04 / PART FOUR | Spatial Information | What the Map Adds to a Time-Only Solution | Road-centreline projection | Lane-level mapped result | Three numbers, three 
+  [04] 节标题                pics=1  4.1  The Road-Centreline Prior | CHAPTER 04 · SPATIAL INFORMATION | Physics and learning both work in time. A map works in space — it supplies exactly the compo
+  [05] 节标题                pics=1  4.2  What It Means for the Map | CHAPTER 04 · SPATIAL INFORMATION | A lane marking is observed relative to the vehicle, so a pose error becomes a map error — th
+  [06] 节标题                pics=0  4.3  Three Numbers, Three Limits | CHAPTER 04 · SPATIAL INFORMATION | Each number belongs to a different limit — compute, geometry, and mapping. | 48.6× | THROU
+  [07] 节标题                pics=0  Questions & Discussion | Thank You

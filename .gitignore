@@ -1,0 +1,21 @@
+# ---- data & run artefacts (multi-GB, regenerate with the simulator) ----
+data/
+runs/
+结果/
+结果.rar
+
+# ---- rendered decks / intermediate slide exports ----
+results/ppt/full/
+results/ppt/_chk*.png
+results/ppt/_tpl*.png
+
+# ---- python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ---- OS ----
+Thumbs.db
+desktop.ini
+.DS_Store

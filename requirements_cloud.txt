@@ -1,0 +1,14 @@
+# AutoDL (PyTorch 2.x / py3.10 / CUDA 12.x image).  Any GPU works: the filter
+# uses float32 tensors and distilgpt2 fits in <4 GB.
+#
+#   pip install -r requirements_cloud.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+#   export HF_ENDPOINT=https://hf-mirror.com     # distilgpt2 (~350 MB)
+#
+torch>=2.0
+numpy>=1.24
+pandas>=2.0
+pyyaml>=6.0
+matplotlib>=3.7
+transformers>=4.40
+peft>=0.10
+accelerate>=0.30

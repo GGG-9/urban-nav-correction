@@ -1,0 +1,474 @@
+
+===== page 1 (空白) =====
+MS022161
+Engineering Big-Data Analysis
+Southeast University
+October 2026
+COURSE PROJECT · GROUP PRESENTATION
+GPU-Parallel Batched Kalman Smoothing and a LoRA-Tuned Time-Series Foundation Model
+for Urban Vehicular Integrated-Navigation Correction
+Physics baseline · GPU acceleration · gated residual learning · road-centreline prior
+Guo Haisu  ·  MS022161  ·  Southeast University
+
+===== page 2 (节标题) =====
+Contents
+MS022161 · ENGINEERING BIG-DATA ANALYSIS
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+01
+Overview & Background
+Three-tier architecture, the 8.64 M-row sensor corpus, and the O(t²) mechanics of inertial drift.
+02
+Filtering & GPU Batching
+15-state error-state Kalman filter, full-state RTS smoothing, 192-window CUDA parallelism, and the runtime/accuracy trade-off.
+03
+Foundation Model & LoRA
+20-channel sensor tensors, a GPT4TS-style patched DistilGPT2, LoRA fine-tuning, then training and safety gating.
+04
+Spatial Information & Conclusion
+Continuity-constrained road projection, the lane-level map result, and what the four tiers actually bought.
+
+===== page 3 (标题和内容) =====
+01 / PART ONE
+Overview & Background
+Why a Progressive Three-Tier Correction Architecture?
+1.1  Three-tier architecture
+1.2  The 8.64 M-row corpus
+1.3  Why physics alone drifts
+
+===== page 4 (节标题) =====
+1.1  Why a Three-Tier Architecture?
+PART ONE · OVERVIEW & BACKGROUND
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Each tier removes what the one before cannot — physics, then compute, then learned and spatial information.
+MEMS IMU / AHRS and GNSS antenna — the sensor class this pipeline targets.
+TIER 1
+Physical filtering & smoothing (ESKF + RTS)
+A 15-state filter fuses 100 Hz IMU with 1 Hz GNSS; an RTS pass then uses the post-outage fixes. Outage error 104.65 m → 9.93 m (−90.5 %).
+TIER 2
+GPU window-batched parallelism
+192 windows from 48 routes in one batch on a single RTX 4090. 1 M IMU rows in 46.2 s instead of 2,245 s; the whole 8.64 M-row corpus in 17 minutes.
+TIER 3
+Learned residual and a map prior
+A LoRA-tuned DistilGPT2 reads 20-channel tensors and is admitted only through a one-standard-error gate. A road-centreline prior then takes B3 from 9.93 to 6.30 m.
+
+===== page 5 (节标题) =====
+1.2  The 8.64 M-Row Sensor Corpus
+PART ONE · OVERVIEW & BACKGROUND
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Forty-eight routes of 1,800 s at 100 Hz — 8.64 M IMU rows, 86,400 GNSS fixes, and 48 injected 60 s outages.
+48
+routes, each 1,800 s
+8.64 M
+IMU rows at 100 Hz
+86,400
+GNSS fixes at 1 Hz
+60 s
+per injected outage
+ROUTE SPLIT
+Train
+35 routes
+9,310 windows
+Validation
+5 routes
+1,330 windows
+Held-out test
+8 routes
+2,128 windows
+Windows never cross a route boundary, and no test route contributes a normalisation statistic.
+TWENTY CHANNELS PER STEP (10 Hz)
+6
+IMU
+gyro (3) and accelerometer (3), bias-corrected
+5
+context
+GNSS innovation (3), outage flag, time since fix
+9
+filter state
+velocity (3), accelerometer bias (3), gyro bias (3)
+SIMULATED CORPUS    A self-written analytic IMU/GNSS simulator (configs/imu_gnss.yaml); every number in this deck is measured on it.
+
+===== page 6 (节标题) =====
+1.3  Why Physics Alone Drifts
+PART ONE · OVERVIEW & BACKGROUND
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+A constant accelerometer bias is integrated twice — without a fix, position error grows as O(t²).
+Idealised bias-only growth (b_a = 0.01 m s⁻²): 18 m after 60 s.
+01
+IMU errors are integrated
+Acceleration bias enters velocity once and position twice; attitude error additionally misaligns gravity.
+02
+An outage removes the only absolute fix
+The filter can only predict: the covariance keeps growing and nothing pulls the trajectory back.
+03
+Measured on the corpus
+Dead reckoning (B1) over the 8 test routes: 104.65 m mean outage error, 413 m worst single outage.
+WHY THE CURVE IS NOT THE WHOLE STORY   the plotted case is bias only; attitude misalignment and scale factor make up the rest of the measured 104.65 m.
+
+===== page 7 (标题和内容) =====
+02 / PART TWO
+Filtering & GPU Batching
+ESKF, RTS Smoothing and Window-Parallel CUDA
+2.1  IMU mechanization
+2.2  15-state ESKF
+2.3  RTS smoothing
+2.4–2.5  Results: error and trajectory
+2.6–2.8  GPU windows, stitching, throughput
+
+===== page 8 (节标题) =====
+2.1  IMU Mechanization
+PART TWO · FILTERING & GPU BATCHING
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Mechanization turns bias-corrected IMU measurements into attitude, velocity and position.
+INPUTS
+Bias-corrected IMU
+Local ENU gravity
+Subtract the biases before integration; normalise the quaternion after every attitude update.
+OUTPUTS
+Attitude q, velocity v, position p at 100 Hz — the nominal state the error filter later corrects.
+1
+Update attitude from the angular rate
+Quaternion exponential of the bias-corrected gyro, normalised at every step.
+2
+Rotate specific force and update velocity
+Body-frame specific force rotated into ENU, gravity removed, then integrated.
+3
+Integrate velocity to position
+Trapezoidal integration at 100 Hz.
+
+===== page 9 (节标题) =====
+2.2  15-State Error-State Kalman Filter
+PART TWO · FILTERING & GPU BATCHING
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+The filter estimates the error, injects it into the nominal state, and resets — the state itself is never linearised twice.
+15 error states, three each:
+δp · δv · ψ · δb_a · δb_g
+1 · Predict the covariance
+2 · Form the GNSS correction
+3 · Inject the correction and reset
+Φ is rebuilt every step from the mechanization Jacobian; Q comes from the IMU noise model.
+H selects position only, so S is 3×3 and the gain needs no 15×15 inverse.
+Two solves and two products per step — which is why one Kalman step is launch-bound on the GPU (page 2.6).
+Joseph covariance update
+Kept in Joseph form so the covariance stays symmetric positive definite over 180,000 steps.
+
+===== page 10 (节标题) =====
+2.3  RTS Smoothing
+PART TWO · FILTERING & GPU BATCHING
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+A forward filter keeps the past; the RTS pass adds the future — the fixes after an outage reach backwards into it.
+RTS RECURSION IN CONSISTENT LOCAL COORDINATES
+All five state blocks are corrected — position, velocity, attitude and both biases.
+1
+Forward ESKF
+Store the filtered and predicted states, covariances and transition matrices for every step.
+2
+Backward recursion
+Start from the final filtered estimate; the smoother gain carries each future correction backwards.
+3
+Recover the full state
+Attitude by quaternion multiplication, then renormalise.
+
+===== page 11 (节标题) =====
+2.4  Results I — Position Error
+PART TWO · FILTERING & GPU BATCHING
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+RTS pulls the mean outage error from 51.44 m to 9.93 m (−80.7 %) and the worst single outage from 413 m to 28.3 m.
+104.65 m
+B1 · dead reckoning
+51.44 m
+B2 · forward ESKF
+9.93 m
+B3 · ESKF + RTS
+−80.7 %
+B2 → B3, 8 test routes
+Grey bands are the injected GNSS outages. The forward filter bends away and returns; the smoother stays with the ground truth.
+
+===== page 12 (节标题) =====
+2.5  Results II — Trajectory
+PART TWO · FILTERING & GPU BATCHING
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Inside the outage the forward filter leaves the road; the smoother restores the path geometry.
+Route 6, the self-intersecting ring. Windowed GPU RTS follows the full-route smoother to within a metre in this view.
+ESKF DRIFTS INSIDE THE OUTAGE
+The faint dotted path leaves the black reference along the S-bend: with no fixes the forward pass can only accumulate error.
+RTS RESTORES THE GEOMETRY
+The solid green path stays on the reference through the same bend — the returning fixes are projected backwards along the stored transition matrices.
+
+===== page 13 (节标题) =====
+2.6  Parallelism Across Windows
+PART TWO · FILTERING & GPU BATCHING
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Each window is an independent Kalman task; the batch dimension is the parallel axis.
+THE BATCH, AS A MATRIX
+B = 192 / windows
+T = 60,000 time steps, left to right →
+Inside a row the filter is strictly serial; across rows everything is independent — that is the only parallel axis, and it is enough.
+01  Independent tasks
+Split every log into overlapping windows; windows from different routes and vehicles share one batch. Nothing inside a window is parallel — everything across windows is.
+02  Batched tensors
+One batch of B windows of T samples: IMU [B, T, 3], error state [B, 15], covariance [B, 15, 15]. RTS keeps the whole state history in the same layout.
+03  GPU matrix operations
+At each step all B windows update together with batched products and linear solves — forward ESKF first, backward RTS after.
+WHY IT PAYS   one Kalman step is a chain of 15×15 products — microseconds of work with almost no data reuse. A single step costs about 4 ms whatever the batch size: the kernel is launch-bound, not arithmetic-bound.
+
+===== page 14 (节标题) =====
+2.7  Window Batching and Stitching
+PART TWO · FILTERING & GPU BATCHING
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+600 s windows with 90 s margins: the margin must cover the 60 s outage, and the overlap must hide the seam.
+1
+Parallel initialization
+Initialize every window from nearby GNSS and run a first parallel pass.
+2
+Two-pass warm start
+Re-run each window from its predecessor's final estimate.
+3
+Bidirectional context
+Use past and future GNSS, then discard the burn-in region from the output.
+4
+Overlap-add fusion
+Blend overlapping outputs with normalised tent weights.
+ONE WINDOW  ·  600 s AT 100 Hz
+90 s
+90 s
+burn-in  ·  420 s of output per window  ·  burn-out
+The 90 s margin is a requirement, not a knob: at 30 s, route 43's outage starts before the output boundary and the error jumps to 133 m.
+ALONG A ROUTE  ·  FIVE CONSECUTIVE WINDOWS
+Only the central 420 s of each window is kept; the 90 s arms are burn-in and burn-out, supplied again by the neighbouring window.
+
+===== page 15 (节标题) =====
+2.8  Runtime Gains and Accuracy
+PART TWO · FILTERING & GPU BATCHING
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+One RTX 4090: 48.6× at one million rows, the full corpus in 17 minutes — for 8.2 % of the accuracy.
+48.6×
+1 M IMU rows: 2,245 s CPU vs 46.2 s GPU
+17 min
+the full 8.64 M-row corpus on one GPU
++8.2 %
+outage error: 9.93 → 10.75 m, the price of windows
+At chunk 500 the same benchmark reaches 177.6× — the kernel is launch-bound until the batch is large.
+
+===== page 16 (标题和内容) =====
+03 / PART THREE
+Foundation Model & LoRA
+Learning the Residual the Filter Leaves Behind
+3.1  Residual learning
+3.2  Twenty-channel input
+3.3  GPT4TS-style model
+3.4  LoRA fine-tuning
+3.5  Training and safety gating
+3.6  What it bought
+
+===== page 17 (节标题) =====
+3.1  Residual Learning
+PART THREE · FOUNDATION MODEL AND LoRA
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Smoothing leaves about ten metres. The question is whether that residual is predictable from the sensors.
+BASELINE
+9.93 m
+Mean outage error after full-route RTS on the 8 held-out routes — the number the learned corrector has to beat.
+TARGET
+δp = p_GT − p_KF
+Three components, labelled by ground truth at every step. Never an input.
+INTERFACE
+p = p_KF + α · δp
+δp here is the model's prediction; α is chosen on validation and may be zero — the test set never sees it.
+HYPOTHESIS
+the channels may carry the missing state
+Motion, GNSS availability and the filter's own bias estimates: the residual depends on all three, so it might be identifiable.
+THE RULE   a corrector that cannot beat predict-zero is not allowed to ship — the gate is part of the product, not an afterthought.
+
+===== page 18 (节标题) =====
+3.2  Twenty-Channel Input
+PART THREE · FOUNDATION MODEL AND LoRA
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+What the vehicle did, whether GNSS was there, and what the filter believes — ten times per second.
+6
+IMU
+gyro (3)  ·  accelerometer (3)
+raw motion at 10 Hz
+5
+GNSS context
+innovation (3)  ·  outage flag  ·  time since fix
+the reacquisition spike is kept, not averaged
+9
+filter state
+velocity (3)  ·  accel bias (3)  ·  gyro bias (3)
+the quantity being integrated during the outage
+10 Hz
+feature rate
+1024
+input steps · 102.4 s
+128
+output steps · 12.8 s
+The window is symmetric: the whole pipeline is offline, so the post-outage fix on the right is allowed to explain the drift on the left.
+
+===== page 19 (节标题) =====
+3.3  GPT4TS-Style Adaptation
+PART THREE · FOUNDATION MODEL AND LoRA
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Patch the sensor stream into tokens, embed them, and adapt a frozen language model to regression.
+16 patches
+1024 steps × 20 channels → 16 tokens of 160 values
+82.8 M frozen
+distilgpt2 backbone, only LoRA adapters train
+128 × 3
+regression head returns the central 12.8 s residual
+
+===== page 20 (节标题) =====
+3.4  LoRA Fine-Tuning
+PART THREE · FOUNDATION MODEL AND LoRA
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+LoRA learns a low-rank update and leaves the 82.8 M pretrained weights exactly where they are.
+1.06 %
+of the parameters are trainable — 0.87 M of 82.8 M
+Why not full fine-tuning
+A noisy three-channel residual does not justify 82.8 M weights; LoRA keeps the language prior intact and the update cheap.
+What is trained
+Rank-8 adapters on the attention projections, added to the frozen backbone and merged at inference.
+A naming warning
+The LoRA scaling α is unrelated to the trajectory correction strength α used on the next pages.
+
+===== page 21 (节标题) =====
+3.5  Training and Safety Gating
+PART THREE · FOUNDATION MODEL AND LoRA
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+One design decision and one safety mechanism: weight the loss where the filter is blind, then let a one-standard-error gate decide whether the correction ships.
+01 · LOSS DESIGN
+×22
+windows ×2, outage steps ×11 — 82 % of the gradient lands on the 7 % of the timeline where the filter is blind.
+7.0 %
+of the samples
+17.1 %
+of the squared residual
+81.7 %
+of the gradient
+SAFETY FALLBACK · α = 0 ON 8 / 8 ROUTES
+Unguarded α* = 2.00 / 1.90 buys +2.7 % / +2.9 % on validation and loses 2.2 % / 4.9 % on test. A one-standard-error rule returns α = 0.00 everywhere.
+The gate is fitted per route on validation; test never sees it.
+02 · TRAINING OUTCOME
+train loss −19 % / −66 % · validation stays above predict-zero
+03 · UNGUARDED CORRECTION
+α* chosen on validation only
+
+===== page 22 (节标题) =====
+3.6  What It Bought — and Where It Stops
+PART THREE · FOUNDATION MODEL AND LoRA
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Every tier removes what the one before cannot. What is left is not noise — it is information the outage removed.
+01 · THE LADDER
+B1 → B3 removes 90.5 % of the outage error; the worst single outage falls 413 → 28.3 m. The same smoother on GPU windows costs +8.2 % (10.75 m) — the price of seeing ±90 s instead of the whole route.
+02 · THE WALL
+84 %
+of the RTS residual is a smooth quadratic in outage time — a frozen initial-state error, not noise.
+91 %
+of the outage error would vanish if that smooth part were known exactly — that is, if the missing fix existed.
+0.9 %
+is all an oracle IMU calibration adds; the bias is not what is left over.
+0.0 %
+is what the trained corrector recovers on unseen routes — the channels do not carry the missing state.
+THE GATE IS THE RESULT  ·  α = 0 ON 8 / 8
+Direction transfers across routes (r ≈ 0.70); amplitude does not.
+
+===== page 23 (标题和内容) =====
+04 / PART FOUR
+Spatial Information
+What the Map Adds to a Time-Only Solution
+Road-centreline projection
+Lane-level mapped result
+Three numbers, three limits
+
+===== page 24 (节标题) =====
+4.1  The Road-Centreline Prior
+PART FOUR · SPATIAL INFORMATION
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Physics and learning both work in time. A map works in space — it supplies exactly the component no inertial sensor can observe.
+9.93 → 6.30 m
+test-mean outage error, B3 → map prior (−36.5 %)
+8 / 8 routes
+improve, +26 % to +46 %
+±1 m survey
+tolerated; at 2 m route 46 jumps to a parallel branch
+Continuity-constrained projection — arc length monotone, speed limit, heading term — not nearest-point, which reaches only 7.52 m and regresses the self-intersecting route 46 by 36 %. Shown on the numpy reference (B3); the GPU trajectory follows the same path, 10.75 → 6.98 m.
+
+===== page 25 (节标题) =====
+4.2  What It Means for the Map
+PART FOUR · SPATIAL INFORMATION
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+A lane marking is observed relative to the vehicle, so a pose error becomes a map error — the doubled, smeared lane line of a map built from uncorrected trajectories.
+43.9 → 6.5 → 0.28 m
+lane-line lateral offset: dead reckoning → filter → map prior
+86.2 %
+of mapped points inside the 0.5 m HD tolerance
+40.7 → 6.9 m
+along-track error, left untouched by the prior by design
+0.28 m is the chord error of a 1 Hz centreline, not a pose accuracy: with a prior map this measures map update, not mapping from scratch.
+
+===== page 26 (节标题) =====
+4.3  Three Numbers, Three Limits
+PART FOUR · SPATIAL INFORMATION
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Each number belongs to a different limit — compute, geometry, and mapping.
+48.6×
+THROUGHPUT
+1 M IMU rows: 2,245 s on CPU vs 46.2 s on one RTX 4090; 177.6× at chunk 500. The full 8.64 M-row corpus filters in 17 min.
+90.5 %
+ACCURACY
+Outage error 104.65 → 9.93 m; worst outage 413 → 28.3 m. The windowed GPU pipeline pays 8.2 % for its parallelism.
+0.28 m
+MAPPING
+Lane-line lateral offset after the prior; 86 % of mapped points inside the 0.5 m HD tolerance.
+WHAT WE WOULD TEST NEXT
+Replay a real IMU / GNSS log — the corpus here is simulated; the filter and the prior do not change, only the noise model does.
+Widen the window — 90 s of burn-in is a requirement, not the window length; a longer window recovers most of the 8.2 %.
+Feed the corrector the missing fix — until a sensor supplies what the outage removed, the gate keeps α at zero.
+REPRODUCIBLE    48 routes · 8.64 M rows · every figure re-renders from results/summary.md
+
+===== page 27 (节标题) =====
+Conclusion  ·  Four Numbers, One Thread
+CONCLUSION · MS022161
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Each tier removes a different kind of error. What is left after the last one is information the outage removed.
+90.5 %
+PHYSICS
+of the outage error removed by ESKF + RTS: 104.65 → 9.93 m.
+48.6×
+COMPUTE
+faster than serial CPU at one million rows, for 8.2 % of accuracy.
+α = 0
+LEARNING
+the gate returns zero on all 8 held-out routes — the channels do not carry the missing state.
+36.5 %
+SPACE
+further reduction from a road-centreline prior: 9.93 → 6.30 m, with 86.2 % of mapped points inside the 0.5 m tolerance.
+Next: replay a real IMU / GNSS log, widen the window, and give the corrector the one thing the outage took away.
+
+===== page 28 (节标题) =====
+Questions & Discussion
+MS022161 · ENGINEERING BIG-DATA ANALYSIS
+Thank You
+GPU-Parallel Batched Kalman Smoothing and a LoRA-Tuned Time-Series Foundation Model
+Guo Haisu · MS022161 Engineering Big-Data Analysis · Southeast University

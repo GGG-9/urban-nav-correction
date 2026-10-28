@@ -1,0 +1,8 @@
+# Local / CPU-only smoke test (Windows, Python 3.10+).
+# No GPU needed: the numpy reference filter, the simulator, the dataset builder
+# and the LSTM model all run on CPU.  The GPT4TS model needs the cloud packages.
+numpy>=1.24
+pandas>=2.0         # CSV writer used by mini_imu_sim.save_route
+pyyaml>=6.0
+matplotlib>=3.7
+torch>=2.0          # CPU wheel is fine

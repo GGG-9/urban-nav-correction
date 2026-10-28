@@ -1,0 +1,89 @@
+master layouts: 12
+
+--- layout 0: 标题幻灯片
+   PLACEHOLDER (14)       name=标题 1                         (1.67,1.23) 10.00x2.61  txt='单击此处编辑母版标题样式'
+   PLACEHOLDER (14)       name=副标题 2                        (1.67,3.94) 10.00x1.81  txt='单击此处编辑母版副标题样式'
+   PLACEHOLDER (14)       name=日期占位符 3                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 4                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 5                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+
+--- layout 1: 标题和内容
+   AUTO_SHAPE (1)         name=矩形 6                         (-0.00,0.00) 3.78x7.50  txt=''
+   AUTO_SHAPE (1)         name=矩形 7                         (0.17,0.26) 3.44x6.97  txt=''
+   PLACEHOLDER (14)       name=日期占位符 1                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 2                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 3                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+   PICTURE (13)           name=图片 5                         (1.10,0.42) 1.45x1.45
+
+--- layout 2: 节标题
+   AUTO_SHAPE (1)         name=矩形 6                         (0.00,0.00) 13.33x0.86  txt=''
+   AUTO_SHAPE (1)         name=矩形 4                         (12.82,6.99) 0.51x0.51  txt='‹#›'
+   PLACEHOLDER (14)       name=日期占位符 5                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 8                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 9                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+   PICTURE (13)           name=图片 2                         (0.16,0.08) 0.69x0.69
+
+--- layout 3: 两栏内容
+   PLACEHOLDER (14)       name=标题 1                         (0.92,0.40) 11.50x1.45  txt='单击此处编辑母版标题样式'
+   PLACEHOLDER (14)       name=内容占位符 2                      (0.92,2.00) 5.67x4.76  txt='单击此处编辑母版文本样式\n二级\n三级\n四级\n五级'
+   PLACEHOLDER (14)       name=内容占位符 3                      (6.75,2.00) 5.67x4.76  txt='单击此处编辑母版文本样式\n二级\n三级\n四级\n五级'
+   PLACEHOLDER (14)       name=日期占位符 4                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 5                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 6                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+
+--- layout 4: 比较
+   PLACEHOLDER (14)       name=标题 1                         (0.92,0.40) 11.50x1.45  txt='单击此处编辑母版标题样式'
+   PLACEHOLDER (14)       name=文本占位符 2                      (0.92,1.84) 5.64x0.90  txt='单击此处编辑母版文本样式'
+   PLACEHOLDER (14)       name=内容占位符 3                      (0.92,2.74) 5.64x4.03  txt='单击此处编辑母版文本样式\n二级\n三级\n四级\n五级'
+   PLACEHOLDER (14)       name=文本占位符 4                      (6.75,1.84) 5.67x0.90  txt='单击此处编辑母版文本样式'
+   PLACEHOLDER (14)       name=内容占位符 5                      (6.75,2.74) 5.67x4.03  txt='单击此处编辑母版文本样式\n二级\n三级\n四级\n五级'
+   PLACEHOLDER (14)       name=日期占位符 6                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 7                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 8                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+
+--- layout 5: 仅标题
+   PLACEHOLDER (14)       name=标题 1                         (0.92,0.40) 11.50x1.45  txt='单击此处编辑母版标题样式'
+   PLACEHOLDER (14)       name=日期占位符 2                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 3                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 4                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+
+--- layout 6: 空白
+   PLACEHOLDER (14)       name=日期占位符 1                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 2                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 3                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+
+--- layout 7: 内容与标题
+   PLACEHOLDER (14)       name=标题 1                         (0.92,0.50) 4.30x1.75  txt='单击此处编辑母版标题样式'
+   PLACEHOLDER (14)       name=内容占位符 2                      (5.67,1.08) 6.75x5.33  txt='单击此处编辑母版文本样式\n二级\n三级\n四级\n五级'
+   PLACEHOLDER (14)       name=文本占位符 3                      (0.92,2.25) 4.30x4.17  txt='单击此处编辑母版文本样式'
+   PLACEHOLDER (14)       name=日期占位符 4                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 5                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 6                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+
+--- layout 8: 图片与标题
+   PLACEHOLDER (14)       name=标题 1                         (0.92,0.50) 4.30x1.75  txt='单击此处编辑母版标题样式'
+   PLACEHOLDER (14)       name=图片占位符 2                      (5.67,1.08) 6.75x5.33  txt=''
+   PLACEHOLDER (14)       name=文本占位符 3                      (0.92,2.25) 4.30x4.17  txt='单击此处编辑母版文本样式'
+   PLACEHOLDER (14)       name=日期占位符 4                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 5                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 6                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+
+--- layout 9: 标题和竖排文字
+   PLACEHOLDER (14)       name=标题 1                         (0.92,0.40) 11.50x1.45  txt='单击此处编辑母版标题样式'
+   PLACEHOLDER (14)       name=竖排文字占位符 2                    (0.92,2.00) 11.50x4.76  txt='单击此处编辑母版文本样式\n二级\n三级\n四级\n五级'
+   PLACEHOLDER (14)       name=日期占位符 3                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 4                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 5                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+
+--- layout 10: 竖排标题与文本
+   PLACEHOLDER (14)       name=竖排标题 1                       (9.54,0.40) 2.88x6.36  txt='单击此处编辑母版标题样式'
+   PLACEHOLDER (14)       name=竖排文字占位符 2                    (0.92,0.40) 8.46x6.36  txt='单击此处编辑母版文本样式\n二级\n三级\n四级\n五级'
+   PLACEHOLDER (14)       name=日期占位符 3                      (0.92,6.95) 3.00x0.40  txt='2026/10/26'
+   PLACEHOLDER (14)       name=页脚占位符 4                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 5                    (9.42,6.95) 3.00x0.40  txt='‹#›'
+
+--- layout 11: 1_自定义版式
+   PLACEHOLDER (14)       name=标题 1                         (0.92,0.40) 11.50x1.45  txt='单击此处编辑母版标题样式'
+   PLACEHOLDER (14)       name=日期占位符 2                      (0.92,6.95) 3.00x0.40  txt=''
+   PLACEHOLDER (14)       name=页脚占位符 3                      (4.42,6.95) 4.50x0.40  txt=''
+   PLACEHOLDER (14)       name=灯片编号占位符 4                    (9.42,6.95) 3.00x0.40  txt='‹#›'

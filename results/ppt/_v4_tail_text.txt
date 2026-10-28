@@ -1,0 +1,92 @@
+
+===== slide 17 =====
+[TextBox 1] 10.5: CHAPTER 03: FOUNDATION MODEL & LoRA · 3.4 TRAINING & SAFETY GATING
+[TextBox 2] 24.0: How Is the Model Trained & Guaranteed Never to Degrade the Filter?
+[TextBox 3] 10.5: 01   LOSS DESIGN
+[TextBox 4] 72.0: ×22
+[TextBox 5] 12.5: on every outage sample
+[TextBox 6] 9.5: of the samples
+[TextBox 9] 12.0: 7.0 %
+[TextBox 10] 9.5: of the squared residual
+[TextBox 13] 12.0: 17.1 %
+[TextBox 14] 9.5: of the gradient
+[TextBox 17] 12.0: 81.7 %
+[TextBox 19] 11.5: Windows get ×2, outage steps ×11 — so 82 % of the gradient lands on the 7 % of the timeline where the filter is flying blind.
+[TextBox 20] 8.5: IMPLEMENTATION
+[TextBox 21] 9.5: FP16 autocast forward; loss, unscale and gradient clipping in FP32; AdamW 1e-4 + OneCycleLR.
+[TextBox 22] 10.5: 02   TRAINING OUTCOME
+[TextBox 24] 10.5: Train loss 5.30 → 4.40 (LSTM) and 4.98 → 1.94 (GPT4TS). On unseen routes the residual stays at the 11.48 m² of predicting zero (best 11.79 / 11.68) — which is exactly what the gate below is for.
+[TextBox 25] 10.5: 03   SAFETY FALLBACK
+[TextBox 27] 10.5: Unguarded α* = 2.00 / 1.90 buys +2.7 % / +2.9 % on validation but −2.2 % / −4.9 % on test; one standard error keeps α = 0.00.
+[TextBox 29] 10.5: VALIDATION SHRINKAGE GATE    one standard error decides whether α ships
+
+===== slide 18 =====
+[TextBox 1] 10.5: CHAPTER 03: FOUNDATION MODEL & LORA · 3.5 WHAT IT ACTUALLY BOUGHT
+[TextBox 2] 24.0: What Did the Learned Corrector Buy — and Where Does It Stop?
+[TextBox 3] 10.5: 01   THE LADDER
+[TextBox 5] 10.5: B1 → B3 removes 90.5 % of the outage error; the worst single outage falls 413 → 28.3 m. Running the same smoother on GPU windows costs +8.2 % (10.75 m) — the price of seeing ±90 s instead of the whole route.
+[TextBox 6] 10.5: 02   THE WALL
+[TextBox 7] 30.0: 84 %
+[TextBox 8] 10.5: of the RTS residual is a smooth quadratic in outage time — a frozen initial-state error, not noise.
+[TextBox 9] 30.0: 91 %
+[TextBox 10] 10.5: of the outage error would vanish if that smooth part were known exactly, i.e. if the missing fix existed.
+[TextBox 11] 30.0: 0.9 %
+[TextBox 12] 10.5: is all an oracle IMU calibration would add. The bias is not what is left over.
+[TextBox 13] 30.0: 0.0 %
+[TextBox 14] 10.5: is what the trained corrector recovers on unseen routes: the channels do not carry the missing state.
+[TextBox 15] 10.5: Direction transfers across routes (r ≈ 0.70); amplitude does not. The size of the offset is fixed at outage entry, where no fix is recorded — a larger network cannot add that information.
+[TextBox 17] 10.5: THE GATE IS THE RESULT    α = 0 on 8 / 8 test routes — the module may only act where it demonstrably helps
+
+===== slide 19 =====
+[TextBox 2] 15.0: CHAPTER 04
+[TextBox 3] 36.0: Spatial Map Prior & Lane-Level Mapping
+[TextBox 4] 16.5: 4.1 Road-Centreline Projection  ➔  4.2 Lane-Level Mapped Result  ➔  4.3 Three Numbers, Three Limits
+
+===== slide 20 =====
+[TextBox 1] 10.5: CHAPTER 04: MAP PRIOR & LANE-LEVEL MAPPING · 4.1 ROAD-CENTRELINE PROJECTION
+[TextBox 2] 24.0: Can a Road Map Remove What the Inertial Filter Cannot See?
+[TextBox 3] 26.0: 9.93 → 6.30 m
+[TextBox 4] 9.0: test-mean outage error, B3 → map prior (−36.5 %)
+[TextBox 5] 26.0: 8 / 8
+[TextBox 6] 9.0: test routes improve, +26 % to +46 %
+[TextBox 7] 26.0: ±1 m
+[TextBox 8] 9.0: survey error tolerated; 2 m breaks route 46
+[TextBox 10] 10.5: Shown on the numpy reference (B3). The centreline supplies the cross-track component no inertial sensor can observe and leaves the along-track part alone; the GPU trajectory follows the same path, 10.75 → 6.98 m.
+[TextBox 11] 9.5: Projection is continuity-constrained — arc length monotone, speed limit, heading term (scripts/map_prior.py) — not nearest-point: nearest-point reaches only 7.52 m and regresses the self-intersecting route 46 by 36 %.
+
+===== slide 21 =====
+[TextBox 1] 10.5: CHAPTER 04: MAP PRIOR & LANE-LEVEL MAPPING · 4.2 WHAT IT MEANS FOR MAPPING
+[TextBox 2] 24.0: Does the Corrected Trajectory Land in the Right Lane?
+[TextBox 3] 26.0: 43.9 → 6.5 → 0.28 m
+[TextBox 4] 9.0: lane-line lateral offset: dead reckoning → filter → map prior
+[TextBox 5] 26.0: 86 %
+[TextBox 6] 9.0: of mapped points inside the 0.5 m HD tolerance
+[TextBox 8] 10.5: A lane line built from these poses lands on the road only after the map prior: 43.9 m of lateral offset from dead reckoning, 6.5 m from the filter, 0.28 m with the prior — and 4.1 % / 6.5 % / 86.2 % of points inside the 0.5 m tolerance.
+[TextBox 9] 9.5: 0.28 m is the chord error of a 1 Hz centreline, not a pose accuracy — with a prior map this measures map update, not mapping from scratch. The along-track component (40.7 → 6.9 m) is untouched by design.
+
+===== slide 22 =====
+[TextBox 1] 10.5: CHAPTER 04: MAP PRIOR & LANE-LEVEL MAPPING · 4.3 THREE NUMBERS, THREE LIMITS
+[TextBox 2] 24.0: What Do These Three Numbers Add Up To?
+[TextBox 3] 46.0: 48.6×
+[TextBox 4] 9.0: THROUGHPUT
+[TextBox 5] 10.5: 1 M IMU rows: 2,245 s on CPU vs 46.2 s on one RTX 4090; 177.6× at chunk 500. The full 8.64 M-row corpus filters in 17 min.
+[TextBox 6] 46.0: 90.5 %
+[TextBox 7] 9.0: ACCURACY
+[TextBox 8] 10.5: Outage error 104.65 → 9.93 m and the worst outage 413 → 28.3 m. The windowed GPU pipeline pays 8.2 % of that for its parallelism.
+[TextBox 9] 46.0: 0.28 m
+[TextBox 10] 9.0: MAPPING
+[TextBox 11] 10.5: Lane-line lateral offset after the map prior; 86 % of mapped points fall inside the 0.5 m HD tolerance.
+[TextBox 13] 9.0: WHAT WE WOULD TEST NEXT
+[TextBox 14] 11.0: •
+[TextBox 15] 11.0: Replay a real IMU / GNSS log. The corpus here is simulated; the filter and the prior do not change, only the noise model does.
+[TextBox 16] 11.0: •
+[TextBox 17] 11.0: Widen the window. 90 s of burn-in is a requirement, not the window length — a longer window recovers most of the 8.2 %.
+[TextBox 18] 11.0: •
+[TextBox 19] 11.0: Feed the corrector the missing fix. Until a sensor supplies what the outage removed, the gate keeps α at zero and the module stays inert.
+[TextBox 21] 10.5: REPRODUCIBLE    48 routes · 8.64 M rows · every figure re-renders from results/summary.md
+
+===== slide 23 =====
+[TextBox 1] 12.0: SOUTHEAST UNIVERSITY · ENGINEERING BIG-DATA ANALYSIS
+[TextBox 2] 42.0: Thank You · Questions & Discussion
+[TextBox 3] 15.0: GPU-Parallel Batched Kalman Smoothing & LoRA Fine-Tuned Time-Series Foundation Model
+[TextBox 4] 9.0: Image credits: oxts.com (GNSS/INS test vehicle) · pexels.com (server hardware)

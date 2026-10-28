@@ -1,0 +1,107 @@
+# Global experiment configuration -- single source of truth.
+seed: 2026
+
+fs_imu: 100          # IMU sampling rate [Hz]
+fs_gnss: 1           # GNSS fix rate [Hz] (low-cost GNSS, within the 1-10 Hz spec)
+
+sim:
+  ramp_s: 4.0            # smooth transition time for speed / yaw-rate / grade profiles
+  gnss_sigma_h: 3.0      # horizontal GNSS noise std [m]
+  gnss_sigma_v: 5.0      # vertical GNSS noise std [m]
+  gnss_multipath_std: 4.0     # correlated (AR-1) multipath bias std [m]
+  gnss_multipath_tau_s: 120.0 # multipath correlation time [s]
+  outage_s: 60.0         # GNSS outage length [s]
+  outage_fracs: [0.30, 0.70]   # outage window start, as fraction of route duration
+  imu:
+    accel_bias_init: 0.05        # m/s^2        (initial constant bias, per-axis std)
+    accel_bias_rw: 3.0e-4        # m/s^2/sqrt(s) (bias random-walk driving noise)
+    gyro_bias_init_deg: 50.0     # deg/h
+    gyro_bias_rw_deg: 3.0        # deg/h/sqrt(s)
+    accel_scale_std: 0.02        # scale-factor error std (2 %) -- only used when
+    gyro_scale_std: 0.02         #   the *_scale_shared keys below are absent
+    # Shared (unit-to-unit) scale-factor / axis-misalignment errors: the same
+    # miscalibration on every route.  This is the systematic model error the
+    # learned residual corrector can identify; the per-route jitter keeps the
+    # routes from being identical copies.
+    accel_scale_shared: [1.018, 0.982, 1.011]
+    gyro_scale_shared: [1.031, 0.971, 1.024]
+    scale_route_jitter: 0.002
+    accel_noise: 0.05            # m/s^2   white noise std per sample
+    gyro_noise_deg: 0.5          # deg/s   white noise std per sample
+    # Unmodelled thermal bias drift: same IMU unit everywhere, random phase per
+    # route.  The filter models the bias as a random walk and therefore lags this
+    # smooth 10-minute cycle -- the systematic residual the learned corrector
+    # removes.  Set both to zero to reproduce a purely random-walk world, in
+    # which the RTS residual is white and cannot be learned.
+    temp_bias_accel: [0.015, -0.012, 0.008]    # m/s^2
+    temp_bias_gyro_deg: [0.008, -0.006, 0.010] # deg/s
+    temp_bias_period_s: 600.0
+    # Quadratic accelerometer scale factor, a_meas = a (1 + k2 |a|).  Off by
+    # default: measured with scripts/probe_learnability.py, the RTS smoother
+    # absorbs it through the bias state, so it does not create a learnable
+    # residual on these routes.  The knob is kept as the ablation "does a
+    # motion-dependent IMU error change the answer?".
+    accel_nl_scale: 0.0   # 1/(m/s^2)
+
+routes:
+  total_duration_s: 1800
+  n_aug: 40                    # extra randomised routes (ids 8 .. 8+n_aug-1)
+  train: [0, 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+          22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37]
+  val: [5, 38, 39, 40, 41]
+  test: [6, 7, 42, 43, 44, 45, 46, 47]
+
+filter:
+  P0:
+    pos: 9.0          # (3 m)^2
+    vel: 0.25         # (0.5 m/s)^2
+    att_deg: 1.0      # (1 deg)^2
+    ba: 0.0025        # (0.05 m/s^2)^2
+    bg_deg: 0.001     # (deg/s)^2  -> sigma ~114 deg/h (covers the 50 deg/h initial bias)
+  Qd:
+    vrw: 5.0e-3       # velocity random walk [m/s^2/sqrt(Hz)] = accel noise density
+    arw: 8.7e-4       # angle random walk [rad/sqrt(s)] = gyro noise density
+    ba_drive: 3.0e-4  # bias random-walk driving noise [m/s^2/sqrt(s)]
+    bg_drive: 1.455e-5 # [rad/s/sqrt(s)] ~= 3 deg/h/sqrt(s)
+  R:
+    gnss_h: 9.0       # (3 m)^2
+    gnss_v: 25.0      # (5 m)^2
+
+hpc:
+  # The quantity that must exceed the outage is the *burn-in*, not the window.
+  # A sample in the output region is smoothed with at least warm_W samples of
+  # data on each side, so an outage of at most warm_W seconds around it is
+  # always bracketed by GNSS inside the window.  With warm_W = 30 s a 60 s
+  # outage that starts just before the end of a window's output region is only
+  # half covered: the window that ends inside the outage has no fix after it
+  # and dead-reckons (measured on route 43: 133 m peak vs 11.5 m for the
+  # full-route smoother).  Both ends matter: T = 2000 (20 s) gives 139 m on
+  # route 6 because the window is shorter than the outage, and T = 30000 with
+  # warm_W = 3000 gives 133 m at the seams for the same reason.
+  # Hence warm_W = 90 s > 60 s outage, with T = 600 s to keep the number of
+  # windows -- and therefore the GPU batch -- small.
+  window_T: 60000     # window length [samples] = 600 s
+  warm_W: 9000        # burn-in / overlap [samples] = 90 s > 60 s outage
+  batch_chunk: 96     # windows per GPU chunk (~5.2 GB at T=60000, float32)
+
+bench:
+  # Throughput protocol: independent windows, fixed at 20 s because the
+  # benchmark measures kernel throughput, not outage recovery.  CPU and GPU
+  # run the identical code path, so rows/s is the comparable number.
+  window_T: 2000
+  chunk: 128
+  sizes: [10000, 30000, 100000, 300000, 1000000]
+  n_repeat: 3
+  batch_scan: [32, 64, 128, 256, 512]
+
+model:
+  in_ch: 20
+  hidden: 128            # LSTM hidden width
+  patch_len: 16          # GPT4TS patch length (1024 / 16 = 64 patches)
+  d_model: 768           # distilgpt2 width
+  backbone: distilgpt2   # swap for "gpt2" on a bigger card
+  lora: true
+  head: mean             # "mean" keeps trainable params ~0.6 %; "flatten" = 19 %
+
+figures:
+  dpi: 300

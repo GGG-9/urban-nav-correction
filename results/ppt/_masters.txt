@@ -1,0 +1,29 @@
+masters: 2
+master 0 theme='Office 主题\u200b\u200b' accents={'accent1': '911D22', 'accent2': 'ED7D31', 'accent3': 'A5A5A5', 'accent4': 'FFC000', 'accent5': '5B9BD5', 'accent6': '70AD47'}
+   fonts [('majorFont', '等线 Light'), ('minorFont', '等线')]
+   layout 0: 标题幻灯片
+   layout 1: 标题和内容
+   layout 2: 节标题
+   layout 3: 两栏内容
+   layout 4: 比较
+   layout 5: 仅标题
+   layout 6: 空白
+   layout 7: 内容与标题
+   layout 8: 图片与标题
+   layout 9: 标题和竖排文字
+   layout 10: 竖排标题与文本
+   layout 11: 1_自定义版式
+master 1 theme='1_Office 主题\u200b\u200b' accents={'accent1': '587558', 'accent2': '31481D', 'accent3': '9DC48C', 'accent4': '34765E', 'accent5': 'BACF85', 'accent6': '34765E'}
+   fonts [('majorFont', '等线 Light'), ('minorFont', '等线')]
+   layout 0: 标题幻灯片
+   layout 1: 标题和内容
+   layout 2: 节标题
+   layout 3: 两栏内容
+   layout 4: 比较
+   layout 5: 仅标题
+   layout 6: 空白
+   layout 7: 内容与标题
+   layout 8: 图片与标题
+   layout 9: 标题和竖排文字
+   layout 10: 竖排标题与文本
+   layout 11: 1_自定义版式

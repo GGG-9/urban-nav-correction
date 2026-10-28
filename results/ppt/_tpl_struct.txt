@@ -1,0 +1,121 @@
+slide size: 13.333 x 7.500 in
+layouts: 0:标题幻灯片, 1:标题和内容, 2:节标题, 3:两栏内容, 4:比较, 5:仅标题, 6:空白, 7:内容与标题, 8:图片与标题, 9:标题和竖排文字, 10:竖排标题与文本, 11:1_自定义版式
+
+
+===== slide 1 layout=标题和内容 =====
+BG: none
+[文本框 5] type=TEXT_BOX (17) x= 0.547 y= 3.080 w= 2.798 h= 1.273 fill=BACKGROUND (5)
+    P al=CENTER (2) sz=60.0 font=微软雅黑 color=None: 02
+    P al=CENTER (2) sz=28.0 font=Times New Roman color=None: PART TWO
+[文本框 3] type=TEXT_BOX (17) x= 4.939 y= 2.160 w= 6.667 h= 1.010 fill=BACKGROUND (5)
+    P al=None sz=54.0 font=微软雅黑 color=None: 主要识别方法
+[等腰三角形 4] type=AUTO_SHAPE (1) x= 5.838 y= 4.480 w= 0.209 h= 0.181
+[文本框 7] type=TEXT_BOX (17) x= 6.258 y= 4.296 w= 1.582 h= 0.524 fill=BACKGROUND (5)
+    P al=None sz=24.0 font=+mn-ea color=None: 频域法
+[文本框 8] type=TEXT_BOX (17) x= 6.258 y= 4.882 w= 2.268 h= 0.524 fill=BACKGROUND (5)
+    P al=None sz=24.0 font=+mn-ea color=None: 神经网络方法
+[等腰三角形 10] type=AUTO_SHAPE (1) x= 5.838 y= 5.076 w= 0.209 h= 0.181
+[文本框 12] type=TEXT_BOX (17) x= 5.652 y= 3.142 w= 4.189 h= 0.438 fill=BACKGROUND (5)
+    P al=None sz=20.0 font=Times New Roman color=1F2328: Research Approach and Methods
+[等腰三角形 1] type=AUTO_SHAPE (1) x= 5.830 y= 3.906 w= 0.209 h= 0.181
+[文本框 2] type=TEXT_BOX (17) x= 6.250 y= 3.722 w= 1.590 h= 0.524 fill=BACKGROUND (5)
+    P al=None sz=24.0 font=+mn-ea color=None: 时域法
+
+===== slide 2 layout=节标题 =====
+BG: none
+[文本框 4] type=TEXT_BOX (17) x= 1.671 y= 1.483 w= 9.992 h= 0.863 fill=BACKGROUND (5)
+    P al=None sz=16.0 font=微软雅黑 Light color=None: 基于***，明确问题或者现阶段方法理论的不足，结合***理论方法的创新，本研究基于***解决**问题。（目标的阐述要确保内容精练且信息完整）
+[矩形: 折角 11] type=AUTO_SHAPE (1) x= 1.469 y= 3.123 w= 2.832 h= 3.488 fill=SOLID (1)
+[矩形: 圆角 14] type=AUTO_SHAPE (1) x= 1.625 y= 2.868 w= 1.780 h= 0.519
+    P al=CENTER (2) sz=None font=微软雅黑 color=None: 研究内容一
+[箭头: V 形 17] type=AUTO_SHAPE (1) x= 4.506 y= 4.477 w= 0.381 h= 0.519
+[文本框 19] type=TEXT_BOX (17) x= 1.564 y= 3.491 w= 2.614 h= 2.539 fill=BACKGROUND (5)
+    P al=None sz=14.0 font=微软雅黑 Light color=1F2328: 简述研究内容时，应确保内容精炼且信息全面，避免过度细节和复杂表述，以便读者快速理解研究的整体构架和主要活动。同时，保持语言的专业性和准确性，体现研究的专业深度和严谨性。
+[矩形: 折角 24] type=AUTO_SHAPE (1) x= 5.179 y= 3.123 w= 2.832 h= 3.488 fill=SOLID (1)
+[矩形: 圆角 25] type=AUTO_SHAPE (1) x= 5.335 y= 2.868 w= 1.780 h= 0.519
+    P al=CENTER (2) sz=None font=微软雅黑 color=None: 研究内容二
+[箭头: V 形 26] type=AUTO_SHAPE (1) x= 8.216 y= 4.477 w= 0.381 h= 0.519
+[文本框 27] type=TEXT_BOX (17) x= 5.274 y= 3.491 w= 2.614 h= 2.539 fill=BACKGROUND (5)
+    P al=None sz=14.0 font=微软雅黑 Light color=1F2328: 简述研究内容时，应确保内容精炼且信息全面，避免过度细节和复杂表述，以便读者快速理解研究的整体构架和主要活动。同时，保持语言的专业性和准确性，体现研究的专业深度和严谨性。
+[矩形: 折角 28] type=AUTO_SHAPE (1) x= 8.966 y= 3.123 w= 2.832 h= 3.488 fill=SOLID (1)
+[矩形: 圆角 29] type=AUTO_SHAPE (1) x= 9.121 y= 2.868 w= 1.780 h= 0.519
+    P al=CENTER (2) sz=None font=微软雅黑 color=None: 研究内容三
+[文本框 30] type=TEXT_BOX (17) x= 9.060 y= 3.491 w= 2.614 h= 2.539 fill=BACKGROUND (5)
+    P al=None sz=14.0 font=微软雅黑 Light color=1F2328: 简述研究内容时，应确保内容精炼且信息全面，避免过度细节和复杂表述，以便读者快速理解研究的整体构架和主要活动。同时，保持语言的专业性和准确性，体现研究的专业深度和严谨性。
+[直接连接符 32] type=LINE (9) x= 1.635 y= 1.638 w= 0.000 h= 0.693
+
+===== slide 3 layout=节标题 =====
+BG: none
+[文本框 6] type=TEXT_BOX (17) x= 0.970 y= 0.202 w= 2.158 h= 0.505 fill=BACKGROUND (5)
+    P al=None sz=24.0 font=微软雅黑 color=None: 2.2 研究思路
+[矩形 3] type=AUTO_SHAPE (1) x= 0.316 y= 1.289 w= 6.917 h= 5.632 fill=BACKGROUND (5)
+[矩形 4] type=AUTO_SHAPE (1) x= 0.970 y= 2.070 w= 2.776 h= 2.211 fill=BACKGROUND (5)
+[矩形: 圆角 11] type=AUTO_SHAPE (1) x= 0.816 y= 1.781 w= 1.518 h= 0.456
+    P al=CENTER (2) sz=None font=微软雅黑 color=None: 研究背景
+[文本框 14] type=TEXT_BOX (17) x= 0.970 y= 2.254 w= 2.697 h= 1.671 fill=BACKGROUND (5)
+    P al=JUSTIFY (4) sz=16.0 font=微软雅黑 Light color=None: 简述研究背景，关键问题和关键信息要体现出来。简述研究背景，关键问题和关键信息要体现出来。
+[矩形 15] type=AUTO_SHAPE (1) x= 0.931 y= 5.336 w= 4.683 h= 1.461 fill=BACKGROUND (5)
+[矩形: 圆角 16] type=AUTO_SHAPE (1) x= 0.733 y= 5.035 w= 1.518 h= 0.456
+    P al=CENTER (2) sz=None font=微软雅黑 color=None: 现状与不足
+[文本框 18] type=TEXT_BOX (17) x= 0.948 y= 5.481 w= 4.666 h= 1.267 fill=BACKGROUND (5)
+    P al=JUSTIFY (4) sz=16.0 font=微软雅黑 Light color=None: 这里输入研究现状，研究现状可以分多个主要内容进行阐述；这里输入研究现状，研究现状可以分多个主要内容进行阐述；
+[矩形 19] type=AUTO_SHAPE (1) x= 4.226 y= 2.070 w= 2.776 h= 2.395 fill=BACKGROUND (5)
+[矩形: 圆角 20] type=AUTO_SHAPE (1) x= 4.072 y= 1.781 w= 1.518 h= 0.456
+    P al=CENTER (2) sz=None font=微软雅黑 color=None: 理论方法
+[文本框 21] type=TEXT_BOX (17) x= 4.226 y= 2.254 w= 2.697 h= 2.075 fill=BACKGROUND (5)
+    P al=JUSTIFY (4) sz=16.0 font=微软雅黑 Light color=None: 这里评估理论的可行性，以及在本研究中可以达到的预期目标。这里评估理论的可行性，以及在本研究中可以达到的预期目标。
+[直接箭头连接符 23] type=LINE (9) x= 3.000 y= 4.281 w= 0.000 h= 1.056
+[直接箭头连接符 25] type=LINE (9) x= 5.614 y= 6.114 w= 2.628 h= 0.000
+[直接箭头连接符 28] type=LINE (9) x= 6.272 y= 4.465 w= 0.000 h= 1.623
+[矩形 29] type=AUTO_SHAPE (1) x= 7.782 y= 1.289 w= 4.736 h= 5.632 fill=BACKGROUND (5)
+[矩形 31] type=AUTO_SHAPE (1) x= 8.411 y= 1.433 w= 3.845 h= 5.344 fill=BACKGROUND (5)
+[矩形 33] type=AUTO_SHAPE (1) x= 8.675 y= 1.737 w= 0.394 h= 0.394
+[图形 37] type=PICTURE (13) x= 8.704 y= 1.785 w= 0.306 h= 0.306
+[矩形 38] type=AUTO_SHAPE (1) x= 8.675 y= 3.473 w= 0.394 h= 0.394
+[图形 39] type=PICTURE (13) x= 8.704 y= 3.521 w= 0.306 h= 0.306
+[矩形 40] type=AUTO_SHAPE (1) x= 8.675 y= 5.209 w= 0.394 h= 0.394
+[图形 41] type=PICTURE (13) x= 8.704 y= 5.258 w= 0.306 h= 0.306
+[文本框 44] type=TEXT_BOX (17) x= 9.104 y= 1.586 w= 3.069 h= 1.671 fill=BACKGROUND (5)
+    P al=JUSTIFY (4) sz=16.0 font=微软雅黑 Light color=None: 结合现状和理论方法，抛出简短的科学问题，以问号结尾？并附加实验设计过程的概述。
+[文本框 45] type=TEXT_BOX (17) x= 9.098 y= 3.371 w= 3.069 h= 1.671 fill=BACKGROUND (5)
+    P al=JUSTIFY (4) sz=16.0 font=微软雅黑 Light color=None: 结合现状和理论方法，抛出简短的科学问题，以问号结尾？并附加实验设计过程的概述。
+[文本框 46] type=TEXT_BOX (17) x= 9.098 y= 5.079 w= 3.069 h= 1.671 fill=BACKGROUND (5)
+    P al=JUSTIFY (4) sz=16.0 font=微软雅黑 Light color=None: 结合现状和理论方法，抛出简短的科学问题，以问号结尾？并附加实验设计过程的概述。
+
+===== slide 4 layout=节标题 =====
+BG: none
+[文本框 6] type=TEXT_BOX (17) x= 0.970 y= 0.202 w= 2.158 h= 0.505 fill=BACKGROUND (5)
+    P al=None sz=24.0 font=微软雅黑 color=None: 2.3 研究方法
+[组合 43] type=GROUP (6) x= 0.906 y= 1.967 w= 4.241 h= 4.241
+  [椭圆 39] type=AUTO_SHAPE (1) x= 4.267 y= 2.841 w= 2.751 h= 2.751 fill=GRADIENT (3)
+      P al=CENTER (2) sz=24.0 font=微软雅黑 color=None: 研究方法
+  [圆: 空心 41] type=AUTO_SHAPE (1) x= 3.944 y= 2.518 w= 3.398 h= 3.398 fill=SOLID (1)
+  [圆: 空心 42] type=AUTO_SHAPE (1) x= 3.509 y= 2.083 w= 4.267 h= 4.267 fill=SOLID (1)
+[弧形 53] type=FREEFORM (5) x= 2.339 y= 1.578 w= 3.257 h= 4.744
+[圆: 空心 56] type=AUTO_SHAPE (1) x= 4.557 y= 1.830 w= 0.316 h= 0.316 fill=GRADIENT (3)
+[圆: 空心 58] type=AUTO_SHAPE (1) x= 5.298 y= 3.078 w= 0.316 h= 0.316 fill=GRADIENT (3)
+[圆: 空心 59] type=AUTO_SHAPE (1) x= 5.399 y= 4.406 w= 0.316 h= 0.316 fill=GRADIENT (3)
+[圆: 空心 60] type=AUTO_SHAPE (1) x= 4.782 y= 5.731 w= 0.316 h= 0.316 fill=GRADIENT (3)
+[椭圆 65] type=AUTO_SHAPE (1) x= 5.614 y= 1.606 w= 0.643 h= 0.643 fill=GRADIENT (3)
+[椭圆 67] type=AUTO_SHAPE (1) x= 6.108 y= 2.903 w= 0.643 h= 0.643 fill=GRADIENT (3)
+[椭圆 68] type=AUTO_SHAPE (1) x= 6.108 y= 4.224 w= 0.643 h= 0.643 fill=GRADIENT (3)
+[椭圆 69] type=AUTO_SHAPE (1) x= 5.640 y= 5.565 w= 0.643 h= 0.643 fill=GRADIENT (3)
+[图形 71] type=PICTURE (13) x= 6.212 y= 3.018 w= 0.434 h= 0.434
+[图形 73] type=PICTURE (13) x= 5.718 y= 1.710 w= 0.434 h= 0.434
+[图形 75] type=PICTURE (13) x= 6.208 y= 4.346 w= 0.434 h= 0.434
+[图形 77] type=PICTURE (13) x= 5.744 y= 5.666 w= 0.434 h= 0.434
+[表格 78] type=TABLE (19) x= 6.535 y= 1.349 w= 5.956 h= 0.855
+    TBL: 单击此处编辑正文内容，描述该方法怎么在研究中体现；单击此处编辑正文内容，描述该方法怎么在研究中体现；
+[表格 90] type=TABLE (19) x= 6.855 y= 2.691 w= 5.956 h= 0.855
+    TBL: 单击此处编辑正文内容，描述该方法怎么在研究中体现；单击此处编辑正文内容，描述该方法怎么在研究中体现；
+[表格 91] type=TABLE (19) x= 6.855 y= 4.034 w= 5.956 h= 0.855
+    TBL: 单击此处编辑正文内容，描述该方法怎么在研究中体现；单击此处编辑正文内容，描述该方法怎么在研究中体现；
+[表格 92] type=TABLE (19) x= 6.597 y= 5.354 w= 5.956 h= 0.855
+    TBL: 单击此处编辑正文内容，描述该方法怎么在研究中体现；单击此处编辑正文内容，描述该方法怎么在研究中体现；
+
+===== slide 5 layout=节标题 =====
+BG: none
+[文本框 6] type=TEXT_BOX (17) x= 0.970 y= 0.202 w= 2.832 h= 0.505 fill=BACKGROUND (5)
+    P al=None sz=24.0 font=微软雅黑 color=None: 2.4 研究技术路线
+[图片 3] type=PICTURE (13) x= 2.385 y= 1.215 w= 8.829 h= 5.884
+[矩形 4] type=AUTO_SHAPE (1) x= 1.175 y= 1.000 w=11.035 h= 6.386 fill=BACKGROUND (5)

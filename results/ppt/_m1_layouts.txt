@@ -1,0 +1,104 @@
+MASTER1 shapes:
+  [标题占位符 1] PLACEHOLDER (14) x=0.917 y=0.399 w=11.500 h=1.450
+  [文本占位符 2] PLACEHOLDER (14) x=0.917 y=1.997 w=11.500 h=4.759
+  [日期占位符 3] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 4] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 5] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 0: 标题幻灯片 #####
+  [标题 1] PLACEHOLDER (14) x=1.667 y=1.227 w=10.000 h=2.611
+  [副标题 2] PLACEHOLDER (14) x=1.667 y=3.939 w=10.000 h=1.811
+  [日期占位符 3] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 4] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 5] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 1: 标题和内容 #####
+  [矩形 6] AUTO_SHAPE (1) x=-0.000 y=0.000 w=3.777 h=7.500
+  [矩形 7] AUTO_SHAPE (1) x=0.167 y=0.263 w=3.442 h=6.973
+  [日期占位符 1] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 2] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 3] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+  [图片 5] PICTURE (13) x=1.099 y=0.422 w=1.453 h=1.453
+
+##### M1 LAYOUT 2: 节标题 #####
+  [矩形 6] AUTO_SHAPE (1) x=0.000 y=0.000 w=13.333 h=0.859
+  [矩形 4] AUTO_SHAPE (1) x=12.820 y=6.987 w=0.513 h=0.513
+  [日期占位符 5] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 8] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 9] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+  [图片 2] PICTURE (13) x=0.156 y=0.083 w=0.692 h=0.692
+
+##### M1 LAYOUT 3: 两栏内容 #####
+  [标题 1] PLACEHOLDER (14) x=0.917 y=0.399 w=11.500 h=1.450
+  [内容占位符 2] PLACEHOLDER (14) x=0.917 y=1.997 w=5.667 h=4.759
+  [内容占位符 3] PLACEHOLDER (14) x=6.750 y=1.997 w=5.667 h=4.759
+  [日期占位符 4] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 5] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 6] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 4: 比较 #####
+  [标题 1] PLACEHOLDER (14) x=0.918 y=0.399 w=11.500 h=1.450
+  [文本占位符 2] PLACEHOLDER (14) x=0.918 y=1.839 w=5.641 h=0.901
+  [内容占位符 3] PLACEHOLDER (14) x=0.918 y=2.740 w=5.641 h=4.030
+  [文本占位符 4] PLACEHOLDER (14) x=6.750 y=1.839 w=5.668 h=0.901
+  [内容占位符 5] PLACEHOLDER (14) x=6.750 y=2.740 w=5.668 h=4.030
+  [日期占位符 6] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 7] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 8] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 5: 仅标题 #####
+  [标题 1] PLACEHOLDER (14) x=0.917 y=0.399 w=11.500 h=1.450
+  [日期占位符 2] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 3] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 4] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 6: 空白 #####
+  [日期占位符 1] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 2] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 3] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 7: 内容与标题 #####
+  [标题 1] PLACEHOLDER (14) x=0.918 y=0.500 w=4.300 h=1.750
+  [内容占位符 2] PLACEHOLDER (14) x=5.668 y=1.080 w=6.750 h=5.330
+  [文本占位符 3] PLACEHOLDER (14) x=0.918 y=2.250 w=4.300 h=4.168
+  [日期占位符 4] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 5] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 6] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 8: 图片与标题 #####
+  [标题 1] PLACEHOLDER (14) x=0.918 y=0.500 w=4.300 h=1.750
+  [图片占位符 2] PLACEHOLDER (14) x=5.668 y=1.080 w=6.750 h=5.330
+  [文本占位符 3] PLACEHOLDER (14) x=0.918 y=2.250 w=4.300 h=4.168
+  [日期占位符 4] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 5] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 6] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 9: 标题和竖排文字 #####
+  [标题 1] PLACEHOLDER (14) x=0.917 y=0.399 w=11.500 h=1.450
+  [竖排文字占位符 2] PLACEHOLDER (14) x=0.917 y=1.997 w=11.500 h=4.759
+  [日期占位符 3] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 4] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 5] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 10: 竖排标题与文本 #####
+  [竖排标题 1] PLACEHOLDER (14) x=9.542 y=0.399 w=2.875 h=6.356
+  [竖排文字占位符 2] PLACEHOLDER (14) x=0.917 y=0.399 w=8.458 h=6.356
+  [日期占位符 3] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 4] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 5] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+
+##### M1 LAYOUT 11: 1_自定义版式 #####
+  [标题 1] PLACEHOLDER (14) x=0.917 y=0.399 w=11.500 h=1.450
+  [日期占位符 2] PLACEHOLDER (14) x=0.917 y=6.951 w=3.000 h=0.399
+  [页脚占位符 3] PLACEHOLDER (14) x=4.417 y=6.951 w=4.500 h=0.399
+  [灯片编号占位符 4] PLACEHOLDER (14) x=9.417 y=6.951 w=3.000 h=0.399
+slide 1 layout=标题和内容 masterIsM1=True
+   bg: none
+slide 2 layout=节标题 masterIsM1=True
+   bg: none
+slide 3 layout=节标题 masterIsM1=True
+   bg: none
+slide 4 layout=节标题 masterIsM1=True
+   bg: none
+slide 5 layout=节标题 masterIsM1=True
+   bg: none

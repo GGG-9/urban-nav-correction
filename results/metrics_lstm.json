@@ -1,0 +1,168 @@
+{
+  "model": "lstm",
+  "base": "auto",
+  "val_mse": 11.790943667139723,
+  "alpha": 0.0,
+  "routes": {
+    "6": {
+      "route": "route_06_test_dense_urban",
+      "n": 180000,
+      "b3": {
+        "rmse_all": 6.430408265758251,
+        "rmse_gnss": 5.540053506346746,
+        "outage_max": 25.982086492737142,
+        "outage_mean": 11.414786694345642,
+        "recovery_s": 37.24
+      },
+      "ours": {
+        "rmse_all": 6.430408265758251,
+        "rmse_gnss": 5.540053506346746,
+        "outage_max": 25.982086492737142,
+        "outage_mean": 11.414786694345642,
+        "recovery_s": 37.24
+      },
+      "outage_mean_reduction_pct": 0.0,
+      "outage_max_reduction_pct": 0.0
+    },
+    "7": {
+      "route": "route_07_test_highway_urban",
+      "n": 180000,
+      "b3": {
+        "rmse_all": 6.332867727691194,
+        "rmse_gnss": 5.3441645406015486,
+        "outage_max": 24.684063272089542,
+        "outage_mean": 12.435765018084043,
+        "recovery_s": 30.0
+      },
+      "ours": {
+        "rmse_all": 6.332867727691194,
+        "rmse_gnss": 5.3441645406015486,
+        "outage_max": 24.684063272089542,
+        "outage_mean": 12.435765018084043,
+        "recovery_s": 30.0
+      },
+      "outage_mean_reduction_pct": 0.0,
+      "outage_max_reduction_pct": 0.0
+    },
+    "42": {
+      "route": "route_42_aug_city_34",
+      "n": 180000,
+      "b3": {
+        "rmse_all": 6.798474531380374,
+        "rmse_gnss": 5.829266318952501,
+        "outage_max": 25.219459136155155,
+        "outage_mean": 13.258401453258887,
+        "recovery_s": 42.435
+      },
+      "ours": {
+        "rmse_all": 6.798474531380374,
+        "rmse_gnss": 5.829266318952501,
+        "outage_max": 25.219459136155155,
+        "outage_mean": 13.258401453258887,
+        "recovery_s": 42.435
+      },
+      "outage_mean_reduction_pct": 0.0,
+      "outage_max_reduction_pct": 0.0
+    },
+    "43": {
+      "route": "route_43_aug_suburb_35",
+      "n": 180000,
+      "b3": {
+        "rmse_all": 6.192066259303743,
+        "rmse_gnss": 5.8821006041766175,
+        "outage_max": 13.565572897251567,
+        "outage_mean": 9.116730143896648,
+        "recovery_s": 34.175
+      },
+      "ours": {
+        "rmse_all": 6.192066259303743,
+        "rmse_gnss": 5.8821006041766175,
+        "outage_max": 13.565572897251567,
+        "outage_mean": 9.116730143896648,
+        "recovery_s": 34.175
+      },
+      "outage_mean_reduction_pct": 0.0,
+      "outage_max_reduction_pct": 0.0
+    },
+    "44": {
+      "route": "route_44_aug_highway_36",
+      "n": 180000,
+      "b3": {
+        "rmse_all": 6.770490736834566,
+        "rmse_gnss": 6.280369360640212,
+        "outage_max": 17.21631113456589,
+        "outage_mean": 10.55416884974759,
+        "recovery_s": 52.620000000000005
+      },
+      "ours": {
+        "rmse_all": 6.770490736834566,
+        "rmse_gnss": 6.280369360640212,
+        "outage_max": 17.21631113456589,
+        "outage_mean": 10.55416884974759,
+        "recovery_s": 52.620000000000005
+      },
+      "outage_mean_reduction_pct": 0.0,
+      "outage_max_reduction_pct": 0.0
+    },
+    "45": {
+      "route": "route_45_aug_suburb_37",
+      "n": 180000,
+      "b3": {
+        "rmse_all": 7.269814287968586,
+        "rmse_gnss": 6.209308127854074,
+        "outage_max": 25.092390706111733,
+        "outage_mean": 14.793694508622634,
+        "recovery_s": 34.85
+      },
+      "ours": {
+        "rmse_all": 7.269814287968586,
+        "rmse_gnss": 6.209308127854074,
+        "outage_max": 25.092390706111733,
+        "outage_mean": 14.793694508622634,
+        "recovery_s": 34.85
+      },
+      "outage_mean_reduction_pct": 0.0,
+      "outage_max_reduction_pct": 0.0
+    },
+    "46": {
+      "route": "route_46_aug_ring_38",
+      "n": 180000,
+      "b3": {
+        "rmse_all": 5.955578999909432,
+        "rmse_gnss": 5.789303958398642,
+        "outage_max": 15.394748266445879,
+        "outage_mean": 6.782265503446714,
+        "recovery_s": 30.0
+      },
+      "ours": {
+        "rmse_all": 5.955578999909432,
+        "rmse_gnss": 5.789303958398642,
+        "outage_max": 15.394748266445879,
+        "outage_mean": 6.782265503446714,
+        "recovery_s": 30.0
+      },
+      "outage_mean_reduction_pct": 0.0,
+      "outage_max_reduction_pct": 0.0
+    },
+    "47": {
+      "route": "route_47_aug_ring_39",
+      "n": 180000,
+      "b3": {
+        "rmse_all": 5.504341400685667,
+        "rmse_gnss": 4.625618957448031,
+        "outage_max": 27.555936101048893,
+        "outage_mean": 9.760683928424509,
+        "recovery_s": 60.0
+      },
+      "ours": {
+        "rmse_all": 5.504341400685667,
+        "rmse_gnss": 4.625618957448031,
+        "outage_max": 27.555936101048893,
+        "outage_mean": 9.760683928424509,
+        "recovery_s": 60.0
+      },
+      "outage_mean_reduction_pct": 0.0,
+      "outage_max_reduction_pct": 0.0
+    }
+  }
+}

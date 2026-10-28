@@ -1,0 +1,107 @@
+
+===== page 1 (节标题) =====
+3.4  Training and Safety Gating
+CHAPTER 03 · FOUNDATION MODEL AND LoRA
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+One design decision and one safety mechanism: weight the loss where the filter is blind, then let a one-standard-error gate decide whether the correction ships.
+01 · LOSS DESIGN
+×22
+windows ×2, outage steps ×11 — 82 % of the gradient lands on the 7 % of the timeline where the filter is blind.
+7.0 %
+of the samples
+17.1 %
+of the squared residual
+81.7 %
+of the gradient
+SAFETY FALLBACK · α = 0 ON 8 / 8 ROUTES
+Unguarded α* = 2.00 / 1.90 buys +2.7 % / +2.9 % on validation and loses 2.2 % / 4.9 % on test. A one-standard-error rule returns α = 0.00 everywhere.
+The gate is fitted per route on validation; test never sees it.
+02 · TRAINING OUTCOME
+train loss −19 % / −66 % · validation stays above predict-zero
+03 · UNGUARDED CORRECTION
+α* chosen on validation only
+
+===== page 2 (节标题) =====
+3.5  What It Bought — and Where It Stops
+CHAPTER 03 · FOUNDATION MODEL AND LoRA
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Every tier removes what the one before cannot. What is left is not noise — it is information the outage removed.
+01 · THE LADDER
+B1 → B3 removes 90.5 % of the outage error; the worst single outage falls 413 → 28.3 m. The same smoother on GPU windows costs +8.2 % (10.75 m) — the price of seeing ±90 s instead of the whole route.
+02 · THE WALL
+84 %
+of the RTS residual is a smooth quadratic in outage time — a frozen initial-state error, not noise.
+91 %
+of the outage error would vanish if that smooth part were known exactly — that is, if the missing fix existed.
+0.9 %
+is all an oracle IMU calibration adds; the bias is not what is left over.
+0.0 %
+is what the trained corrector recovers on unseen routes — the channels do not carry the missing state.
+THE GATE IS THE RESULT  ·  α = 0 ON 8 / 8
+Direction transfers across routes (r ≈ 0.70); amplitude does not.
+
+===== page 3 (标题和内容) =====
+04 / PART FOUR
+Spatial Information
+What the Map Adds to a Time-Only Solution
+Road-centreline projection
+Lane-level mapped result
+Three numbers, three limits
+
+===== page 4 (节标题) =====
+4.1  The Road-Centreline Prior
+CHAPTER 04 · SPATIAL INFORMATION
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Physics and learning both work in time. A map works in space — it supplies exactly the component no inertial sensor can observe.
+9.93 → 6.30 m
+test-mean outage error, B3 → map prior (−36.5 %)
+8 / 8 routes
+improve, +26 % to +46 %
+±1 m survey
+tolerated; at 2 m route 46 jumps to a parallel branch
+Continuity-constrained projection — arc length monotone, speed limit, heading term — not nearest-point, which reaches only 7.52 m and regresses the self-intersecting route 46 by 36 %. Shown on the numpy reference (B3); the GPU trajectory follows the same path, 10.75 → 6.98 m.
+
+===== page 5 (节标题) =====
+4.2  What It Means for the Map
+CHAPTER 04 · SPATIAL INFORMATION
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+A lane marking is observed relative to the vehicle, so a pose error becomes a map error — the doubled, smeared lane line of a map built from uncorrected trajectories.
+43.9 → 6.5 → 0.28 m
+lane-line lateral offset: dead reckoning → filter → map prior
+86.2 %
+of mapped points inside the 0.5 m HD tolerance
+40.7 → 6.9 m
+along-track error, left untouched by the prior by design
+0.28 m is the chord error of a 1 Hz centreline, not a pose accuracy: with a prior map this measures map update, not mapping from scratch.
+
+===== page 6 (节标题) =====
+4.3  Three Numbers, Three Limits
+CHAPTER 04 · SPATIAL INFORMATION
+Simulated IMU / GNSS corpus · 48 routes · 8.64 M rows · 8 held-out test routes
+Urban navigation correction · Guo Haisu
+Each number belongs to a different limit — compute, geometry, and mapping.
+48.6×
+THROUGHPUT
+1 M IMU rows: 2,245 s on CPU vs 46.2 s on one RTX 4090; 177.6× at chunk 500. The full 8.64 M-row corpus filters in 17 min.
+90.5 %
+ACCURACY
+Outage error 104.65 → 9.93 m; worst outage 413 → 28.3 m. The windowed GPU pipeline pays 8.2 % for its parallelism.
+0.28 m
+MAPPING
+Lane-line lateral offset after the prior; 86 % of mapped points inside the 0.5 m HD tolerance.
+WHAT WE WOULD TEST NEXT
+Replay a real IMU / GNSS log — the corpus here is simulated; the filter and the prior do not change, only the noise model does.
+Widen the window — 90 s of burn-in is a requirement, not the window length; a longer window recovers most of the 8.2 %.
+Feed the corrector the missing fix — until a sensor supplies what the outage removed, the gate keeps α at zero.
+REPRODUCIBLE    48 routes · 8.64 M rows · every figure re-renders from results/summary.md
+
+===== page 7 (节标题) =====
+Questions & Discussion
+MS022161 · ENGINEERING BIG-DATA ANALYSIS
+Thank You
+GPU-Parallel Batched Kalman Smoothing and a LoRA-Tuned Time-Series Foundation Model
+Guo Haisu · MS022161 Engineering Big-Data Analysis · Southeast University
